@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "//kimsoyeong.github.io/annota/static/css/main.62694f4c.css",
+    "main.js": "//kimsoyeong.github.io/annota/static/js/main.dd3840d9.js",
+    "index.html": "//kimsoyeong.github.io/annota/index.html",
+    "main.62694f4c.css.map": "//kimsoyeong.github.io/annota/static/css/main.62694f4c.css.map",
+    "main.dd3840d9.js.map": "//kimsoyeong.github.io/annota/static/js/main.dd3840d9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.62694f4c.css",
+    "static/js/main.dd3840d9.js"
+  ]
+}
