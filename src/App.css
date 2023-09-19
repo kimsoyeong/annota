@@ -57,10 +57,45 @@ td {
   font-size: 18px;
   font-weight: bold;
   width: 310px;
-  height: 4rem;
+  height: 3rem;
 
   border-color: transparent;
   border-radius: 14px;
 
   margin-top: 2%;
+}
+
+.box-logs {
+  z-index: 2;
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 360px;
+  padding-top: 4px;
+  padding-bottom: 14px;
+
+  background-color: #1d1d1d;
+  color: white;
+  border-radius: 14px;
+}
+.box-logs div {
+  display: inline-block;
+}
+.box-logs p {
+  padding: 0;
+  margin: 4px;
+}
+.btn-close {
+  cursor: pointer;
+  background-color: #ffffff98;
+  width: 60px;
+  height: 24px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 400;
+  margin: 8px 0 4px 0;
+  border-color: transparent;
 }

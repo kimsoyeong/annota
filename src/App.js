@@ -10,6 +10,8 @@ function App() {
   const [timeUTC, setTimeUTC] = useState("UTC/GMT");
   const [timestamp, setTimestamp] = useState(0);
 
+  const [logs, setLogs] = useState([]);
+
   function onClickLabel(l) {
     setLabel(l);
   }
@@ -21,7 +23,16 @@ function App() {
   async function getData() {
     const dataRef = collection(db, "data");
     const dataSnapshot = await getDocs(dataRef);
-    dataSnapshot.docs.map((doc) => console.log(doc.data()));
+
+    var tmp = [];
+    // var tmp = "";
+    dataSnapshot.docs.map((doc) => {
+      tmp.push(doc.data());
+      // var d = doc.data();
+      // tmp += `${d.timestamp},${d.activity},${d.onoff}\n`;
+    });
+
+    setLogs(tmp);
   }
 
   const classLabels = {
@@ -46,6 +57,10 @@ function App() {
     alert(`Uploaded [${classLabels[label]}] ${onOff ? "Stop" : "Start"}`);
   }
 
+  function onGetData() {
+    getData();
+  }
+
   function getCurrentTime() {
     const date = new Date();
 
@@ -59,6 +74,20 @@ function App() {
     setTimeKST(`${year}${month}${day}${hour}${minute}${second}`);
     setTimeUTC(date.toUTCString());
     setTimestamp(parseInt(date.getTime() / 1000));
+  }
+
+  function copy2Clipboard() {
+    const textarea = document.createElement("textarea");
+    document.body.appendChild(textarea);
+    var tmp = "";
+    logs.map(
+      (log, i) => (tmp += `${log.timestamp},${log.activity},${log.onoff}\n`)
+    );
+    textarea.value = tmp;
+    textarea.select();
+
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
   }
 
   useEffect(() => {
@@ -185,7 +214,42 @@ function App() {
         <button className="btn-submit" onClick={onSubmit}>
           SUBMIT
         </button>
+        <button
+          className="btn-submit"
+          style={{ backgroundColor: "#ed5151" }}
+          onClick={onGetData}
+        >
+          GET DATA
+        </button>
       </div>
+      {logs.length > 0 && (
+        <div className="box-logs">
+          <button className="btn-close" onClick={() => setLogs([])}>
+            CLOSE
+          </button>
+          <p style={{ fontWeight: "bold" }}>timestamp, activity, onoff</p>
+          <div>
+            {logs.slice(0, Math.min(10, logs.length)).map((log, i) => (
+              <p key={i}>
+                {log.timestamp},{log.activity},{log.onoff}
+              </p>
+            ))}
+          </div>
+          <button
+            className="btn-submit"
+            style={{
+              backgroundColor: "#ed5151",
+              width: "280px",
+              height: "30px",
+              borderRadius: "8px",
+              fontSize: "14px",
+            }}
+            onClick={copy2Clipboard}
+          >
+            COPY TO CLIPBOARD
+          </button>
+        </div>
+      )}
     </div>
   );
 }
